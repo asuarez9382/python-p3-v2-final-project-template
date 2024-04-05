@@ -65,6 +65,15 @@ class User:
         CONN.commit()
         
     @classmethod
+    def drop_table(cls):
+        """Deletes the table from the database"""
+        sql="""
+            Drop TABLE IF EXISTS users
+        """
+        CURSOR.execute(sql)
+        CONN.commit()
+        
+    @classmethod
     def create(cls, username, email, age):
         #Create user instance
         user = cls(username, email, age)
