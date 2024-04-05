@@ -11,4 +11,5 @@ class User:
         self.email = email
         self.age = age
         
-    
+    def __repr__(self):
+        return f'User {self.id}: {self.name} {self.email} {self.age}'
