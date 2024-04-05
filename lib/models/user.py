@@ -93,3 +93,26 @@ class User:
         cls.all[user.id] = user
         return user
     
+    
+    def update(self):
+        """Updates the row in the table that corresponds to the User object"""
+        sql="""
+            UPDATE users
+            SET username = ?, email = ?, age = ?
+            WHERE id = ?
+        """
+        
+        CURSOR.execute(sql,(self.username, self.email, self.age, self.id))
+        CONN.commit()
+
+    def delete(self):
+        """Deletes the row in the table that corresponds to the User ID"""
+        sql="""
+            DELETE FROM users
+            WHERE id = ?
+        """
+        
+        CURSOR.execute(sql,(self.id,))
+        CONN.commit()
+        del type(self).all[self.id]
+        self.id = None
