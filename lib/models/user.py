@@ -1,4 +1,4 @@
-from __init__ import CURSOR, CONN
+from models.__init__ import CURSOR, CONN
 
 class User:
     
@@ -50,8 +50,37 @@ class User:
             raise ValueError("Age must be an integer and greater than or equal to 5")
         
         
+    @classmethod
+    def create_table(cls):
+        """ Creates a new table to save the attributes of User instances"""
+        sql="""
+            CREATE TABLE IF NOT EXISTS users(
+            id INTEGER PRIMARY KEY,
+            username TEXT,
+            email TEXT,
+            age INTEGER
+            )
+        """
+        CURSOR.execute(sql)
+        CONN.commit()
+        
+    @classmethod
+    def create(cls, username, email, age):
+        #Create user instance
+        user = cls(username, email, age)
+        sql = """
+            INSERT INTO users (username, email, age)
+            VALUES (?, ?, ?)
+        """
+        
+        #Inserts the user instance into the database
+        CURSOR.execute(sql, (username, email, age))
+        CONN.commit()
+        
+        #Gets the id for the user and saves it in the user instance
+        user.id = CURSOR.lastrowid
+        
+        #saves newly created user instance into the class dictionary by id
+        cls.all[user.id] = user
+        return user
     
-#Testing
-mochi = User("mochi9382","mochi@gmail.com",5)
-
-print(mochi.__repr__())
