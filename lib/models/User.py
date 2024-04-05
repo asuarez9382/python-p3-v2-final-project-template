@@ -37,8 +37,21 @@ class User:
             self._email = email
         else:
             raise ValueError("Invalid email")
+        
+    @property
+    def age(self):
+        return self._age
+    
+    @age.setter
+    def age(self, age):
+        if isinstance(age, int) and age >= 5:
+            self._age = age
+        else:
+            raise ValueError("Age must be an integer and greater than or equal to 5")
+        
+        
     
 #Testing
-mochi = User("mochi9382","mochi@gmail.com",21)
+mochi = User("mochi9382","mochi@gmail.com",5)
 
 print(mochi.__repr__())
