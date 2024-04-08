@@ -49,6 +49,19 @@ class User:
         else:
             raise ValueError("Age must be an integer and greater than or equal to 5")
         
+    def save(self):
+        sql="""
+            INSERT INTO users (username, email, age)
+            VALUES (?, ?, ?)
+        """  
+        
+        CURSOR.execute(sql, (self.username, self.email, self.age))
+        CONN.commit()
+        
+        self.id = CURSOR.lastrowid
+        
+        type(self).all[self.id] = self
+         
         
     @classmethod
     def create_table(cls):
@@ -77,22 +90,51 @@ class User:
     def create(cls, username, email, age):
         #Create user instance
         user = cls(username, email, age)
-        sql = """
-            INSERT INTO users (username, email, age)
-            VALUES (?, ?, ?)
-        """
         
-        #Inserts the user instance into the database
-        CURSOR.execute(sql, (username, email, age))
-        CONN.commit()
-        
-        #Gets the id for the user and saves it in the user instance
-        user.id = CURSOR.lastrowid
+        #saves instance as a row to the database
+        user.save()
         
         #saves newly created user instance into the class dictionary by id
         cls.all[user.id] = user
+        
         return user
     
+    @classmethod
+    def instance_from_db(cls, row):
+        """Returns the user object that is a row from the users table"""
+        user = cls.all.get(row[0])
+        if user:
+            user.username = row[1]
+            user.email = row[2]
+            user.age = row[3]
+        else:
+            user = cls(row[1], row[2], row[3])
+            user.id = row[0]
+            cls.all[user.id] = user
+        return user
+            
+    
+    @classmethod
+    def get_all(cls):
+        sql="""
+            SELECT *
+            FROM users
+        """
+        
+        users = CURSOR.execute(sql).fetchall()
+        return [ cls.instance_from_db(user) for user in users ]
+    
+    @classmethod
+    def find_by_id(cls, id):
+        sql="""
+            SELECT *
+            FROM users
+            WHERE id = ?
+        """
+        
+        row = CURSOR.execute(sql, (id,)).fetchone()
+        return cls.instance_from_db(row) if row else None
+        
     
     def update(self):
         """Updates the row in the table that corresponds to the User object"""
@@ -116,3 +158,5 @@ class User:
         CONN.commit()
         del type(self).all[self.id]
         self.id = None
+    
+    
