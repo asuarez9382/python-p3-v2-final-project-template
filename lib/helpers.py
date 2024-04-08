@@ -5,6 +5,7 @@ from models.user import User
 def list_users():
     print("\nListing users...")
     
+    #Gets all of users from the users table
     users = User.get_all()
     for user in users:
         print(f'User ID: {user.id} Username: {user.username} Email: {user.email} Age: {user.age}')
@@ -14,10 +15,12 @@ def update_user():
     
     user_id = input("\nEnter User ID: ")
     user = User.find_by_id(user_id)
+    #Validatest that the user exists in the users table
     if user:
         print("User Exists")
         
         username = input("\nEnter new username: ") 
+        #Validates that the username entered is a string and > 0
         if isinstance(username, str) and len(username) > 0:
             valid_username = True
         else:
@@ -27,6 +30,7 @@ def update_user():
         
         email = input("\nEnter new email: ")
         email_pattern = r'^\S+@\S+\.\S+$'
+        #Validates that the email entered is of the correct form
         if isinstance(email, str) and re.match(email_pattern, email) is not None:
             valid_email = True
         else:
@@ -35,10 +39,12 @@ def update_user():
             return
             
         age = input("\nEnter new age: ")
+        #Validates that the age entered is an integer
         try:
             age = int(age)
         except ValueError:
             print("Age must be an integer")
+        #Validates that the age entered is greater than or equal to 5
         if age >= 5:
             valid_age = True
         else:
@@ -46,7 +52,7 @@ def update_user():
             valid_age = False
             return
             
-        #Update the row in the table corresponding to the inputed user ID
+        #If all inputs are valid updates the dictionary user object and updates the row in the users table
         if valid_username and valid_email and valid_age:
             user.username = username
             user.email = email
