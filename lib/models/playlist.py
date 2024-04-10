@@ -1,11 +1,12 @@
 from models.__init__ import CONN, CURSOR
+from models.user import User
 
 
 class Playlist:
     
     all = {}
     
-    def __init__(self, title, description, id = None, user_id = None):
+    def __init__(self, title, description, user_id, id = None):
         self.title = title
         self.description = description
         self.id = id
@@ -36,6 +37,18 @@ class Playlist:
         else:
             raise ValueError("Description must be a string and have a length > 0")
         
+    @property
+    def user_id(self):
+        return self._user_id
+    
+    @user_id.setter
+    def user_id(self, user_id):
+        if isinstance(user_id, int) and User.find_by_id(user_id):
+            self._user_id = user_id
+        else:
+            raise ValueError("user_id must be an integer and must exist in users table")
+        
+        
     @classmethod
     def create_table(cls):
         sql="""
@@ -59,4 +72,28 @@ class Playlist:
         
         CURSOR.execute(sql)
         CONN.commit()
+        
+    def save(self):
+        sql="""
+            INSERT INTO playlists (title, description, user_id)
+            VALUES (?,?,?)
+        """
+        
+        CURSOR.execute(sql, (self.title, self.description, self.user_id))
+        CONN.commit()
+
+        self.id = CURSOR.lastrowid
+        type(self).all[self.id] = self
+        
+    @classmethod    
+    def create(cls, title, description ,user_id):
+        playlist = cls(title, description, user_id)
+        
+        playlist.save()
+        
+        cls.all[playlist.id] = playlist
+        
+        return playlist
+        
+        
         

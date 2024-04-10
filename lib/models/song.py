@@ -32,7 +32,7 @@ class Song:
     
     @genre.setter
     def genre(self, genre):
-        genres= ['pop','dance','rock','r&b','country']
+        genres= ['pop','dance','rock','r&b','country', 'hip hop']
         if isinstance(genre, str) and len(genre) >= 3:
             genre_lower = genre.lower()
             if genre_lower in genres:
@@ -64,6 +64,7 @@ class Song:
         else:
             raise ValueError("Artist must be a string and greater than or equal to 1")
         
+        
     @classmethod
     def create_table(cls):
         sql="""
@@ -89,3 +90,5 @@ class Song:
         
         CURSOR.execute(sql)
         CONN.commit()
+        
+    
