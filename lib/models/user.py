@@ -134,6 +134,17 @@ class User:
         
         row = CURSOR.execute(sql, (id,)).fetchone()
         return cls.instance_from_db(row) if row else None
+    
+    @classmethod
+    def find_by_username(cls, username):
+        sql="""
+            SELECT *
+            FROM users
+            WHERE username = ?
+        """
+        
+        row = CURSOR.execute(sql, (username,)).fetchone()
+        return cls.instance_from_db(row) if row else None
         
     
     def update(self):

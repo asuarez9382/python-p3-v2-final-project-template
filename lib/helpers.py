@@ -61,6 +61,25 @@ def update_user():
     else:
         print(f'User with ID {user_id} does not exist. ID must be an integer')
         
+def find_by_username():
+    username = input("\nEnter username: ")
+    if isinstance(username, str) and len(username) > 0:
+        found_user = User.find_by_username(username)
+        if found_user:
+            print("\nUser found\n")
+            print(f'User ID: {found_user.id} Username: {found_user.username} Email: {found_user.email} Age: {found_user.age}')
+        else:
+            print(f'\nUsername {username} does not exist')
+            
+    else:
+        print("Invalid username. Username must be a string.")
+        return
+    
+def create_user():
+    username = input("\nEnter username: ")
+    email = input("\nEnter email: ")
+    age = input("\nEnter user's age: ")
+    
     
     
 def exit_program():

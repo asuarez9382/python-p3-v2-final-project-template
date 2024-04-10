@@ -3,7 +3,9 @@
 from helpers import (
     exit_program,
     list_users,
-    update_user
+    update_user,
+    find_by_username,
+    create_user
 )
 
 
@@ -22,7 +24,7 @@ def user_menu():
         print("2. Update user information")
         print("3. Create user")
         print("4. Delete User")
-        print("5. Find user by name")
+        print("5. Find user by username")
         choice = input("\nEnter your choice: ")
 
         if choice == "0":
@@ -32,11 +34,11 @@ def user_menu():
         elif choice == "2":
             update_user()
         elif choice == "3":
-            print("Creating user")
+            create_user()
         elif choice == "4":
             print("Deleting user")
         elif choice == "5":
-            print("Finding user by name")
+            find_by_username()
         else:
             print("Invalid choice. Please try again.")
 
