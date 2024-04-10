@@ -2,13 +2,15 @@
 
 from models.user import User
 
+    
+
 def list_users():
     print("\nListing users...")
     
     #Gets all of users from the users table
     users = User.get_all()
     for user in users:
-        print(f'User ID: {user.id} Username: {user.username} Email: {user.email} Age: {user.age}')
+        print(user)
     
 def update_user():
     import re
@@ -67,7 +69,7 @@ def find_by_username():
         found_user = User.find_by_username(username)
         if found_user:
             print("\nUser found\n")
-            print(f'User ID: {found_user.id} Username: {found_user.username} Email: {found_user.email} Age: {found_user.age}')
+            print(found_user)
         else:
             print(f'\nUsername {username} does not exist')
             
@@ -76,11 +78,46 @@ def find_by_username():
         return
     
 def create_user():
+    import re
+    
     username = input("\nEnter username: ")
-    email = input("\nEnter email: ")
-    age = input("\nEnter user's age: ")
+    #Validates that the username entered is a string and > 0
+    if isinstance(username, str) and len(username) > 0:
+            valid_username = True
+    else:
+        print("Invalid username. Username must be a string.")
+        valid_username = False
+        return
+        
+    email = input("\nEnter email: ")    
+    #Validates that the email entered is of the correct form
+    email_pattern = r'^\S+@\S+\.\S+$'
+    if isinstance(email, str) and re.match(email_pattern, email) is not None:
+            valid_email = True
+    else:
+        print("Invalid email.")
+        valid_email = False
+        return
+        
+    age = input("\nEnter user's age: ") 
+    #Validates that the age entered is an integer
+    try:
+        age = int(age)
+    except ValueError:
+        print("Age must be an integer")
+    #Validates that the age entered is greater than or equal to 5
+    if age >= 5:
+        valid_age = True
+    else:
+        print("Age must be greater than or equal to 5")
+        valid_age = False
+        return
     
-    
+    if valid_age and valid_email and valid_username:
+        print("\nCreating User...")
+        newUser = User.create(username, email, age)
+        print("\nNew User created.")
+        print(newUser)
     
 def exit_program():
     print("Goodbye!")

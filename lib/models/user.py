@@ -12,7 +12,7 @@ class User:
         self.age = age
         
     def __repr__(self):
-        return f'User {self.id}: {self.username} {self.email} {self.age}'
+        return f'User ID: {self.id} Username: {self.username} Email: {self.email} Age: {self.age}'
  
     @property
     def username(self):
