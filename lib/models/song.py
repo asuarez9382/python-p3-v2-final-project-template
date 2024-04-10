@@ -81,3 +81,11 @@ class Song:
         CURSOR.execute(sql)
         CONN.commit()
         
+    @classmethod
+    def drop_table(cls):
+        sql="""
+            DROP TABLE IF EXISTS songs
+        """
+        
+        CURSOR.execute(sql)
+        CONN.commit()
