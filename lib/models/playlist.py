@@ -93,6 +93,27 @@ class Playlist:
         playlist.save()
         
         return playlist
+    
+    @classmethod
+    def instance_from_db(cls, row):
+        #implement logic here
+        pass
+    
+    @classmethod
+    def find_by_id(cls, id):
+        sql="""
+            SELECT * 
+            FROM playlists
+            WHERE id = ?
+        """
+        
+        row = CURSOR.execute(sql, (id,)).fetchone()
+        
+        #Add instance_to_db function
+        found_playlist = Playlist(row[1],row[2],row[3])
+        found_playlist.id = row[0]
+        
+        return found_playlist
         
         
         
