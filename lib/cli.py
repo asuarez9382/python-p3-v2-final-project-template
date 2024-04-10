@@ -5,7 +5,8 @@ from helpers import (
     list_users,
     update_user,
     find_by_username,
-    create_user
+    create_user,
+    delete_user
 )
 
 
@@ -36,7 +37,7 @@ def user_menu():
         elif choice == "3":
             create_user()
         elif choice == "4":
-            print("Deleting user")
+            delete_user()
         elif choice == "5":
             find_by_username()
         else:
@@ -88,7 +89,7 @@ def main():
 
         if choice == "0":
             print("Exiting the program.")
-            break
+            exit_program()
         elif choice == "1":
             user_menu()
         elif choice == "2":

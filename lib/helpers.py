@@ -68,7 +68,7 @@ def find_by_username():
     if isinstance(username, str) and len(username) > 0:
         found_user = User.find_by_username(username)
         if found_user:
-            print("\nUser found\n")
+            print("\nUser found")
             print(found_user)
         else:
             print(f'\nUsername {username} does not exist')
@@ -116,8 +116,17 @@ def create_user():
     if valid_age and valid_email and valid_username:
         print("\nCreating User...")
         newUser = User.create(username, email, age)
-        print("\nNew User created.")
+        print("New User created.")
         print(newUser)
+    
+def delete_user():
+    user_id = input("\nEnter User Id of user to be deleted: ")
+    
+    deleted_user = User.find_by_id(user_id) 
+    
+    print("\nDeleting User...")
+    deleted_user.delete()
+    print(f'User ID {user_id} has been deleted')   
     
 def exit_program():
     print("Goodbye!")
