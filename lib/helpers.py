@@ -56,10 +56,13 @@ def update_user():
             
         #If all inputs are valid updates the dictionary user object and updates the row in the users table
         if valid_username and valid_email and valid_age:
+            print("\nUpdating User...")
             user.username = username
             user.email = email
             user.age = age
             user.update()
+            print("User updated")
+            print(user)
     else:
         print(f'User with ID {user_id} does not exist. ID must be an integer')
         
