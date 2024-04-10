@@ -1,19 +1,22 @@
 from models.__init__ import CONN, CURSOR
+from models.playlist import Playlist
+
+#Songs belong to playlists
 
 class Song:
     
     all = {}
     
-    def __init__(self, title, genre, duration, artist, id = None, playlistID = None):
+    def __init__(self, title, genre, duration, artist, playlist_id, id = None):
         self.title = title
         self.genre = genre
         self.duration = duration
         self.artist = artist
-        self.playlistID = playlistID
+        self.playlist_id = playlist_id
         self.id = id
         
     def __repr__(self):
-        return f'Song ID: {self.id} Song Title: {self.title} Song genre: {self.genre} Duration: {self.duration} Artist: {self.artist}'
+        return f'Song ID: {self.id} Song Title: {self.title} Song genre: {self.genre} Duration: {self.duration} Artist: {self.artist} Playlist ID: {self.playlist_id}'
     
     @property
     def title(self):
@@ -63,7 +66,16 @@ class Song:
             self._artist = artist
         else:
             raise ValueError("Artist must be a string and greater than or equal to 1")
-        
+     
+    """   
+    @property
+    def playlist_id(self):
+        return self._playlist_id
+    
+    @playlist_id.setter
+    def playlist_id(self, playlist_id):
+        if isinstance(playlist_id, int) and 
+   """
         
     @classmethod
     def create_table(cls):

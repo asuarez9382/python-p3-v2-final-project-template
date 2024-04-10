@@ -1,6 +1,7 @@
 from models.__init__ import CONN, CURSOR
 from models.user import User
 
+#A playlist can only belong to one user
 
 class Playlist:
     
@@ -13,7 +14,7 @@ class Playlist:
         self.user_id = user_id
         
     def __repr__(self):
-        return f'Playlist ID: {self.id} Playlist title: {self.title} Playlist description: {self.description}'
+        return f'Playlist ID: {self.id} Playlist title: {self.title} Playlist description: {self.description} UserID: {self.user_id}'
     
     @property
     def title(self):
@@ -90,8 +91,6 @@ class Playlist:
         playlist = cls(title, description, user_id)
         
         playlist.save()
-        
-        cls.all[playlist.id] = playlist
         
         return playlist
         

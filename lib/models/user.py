@@ -1,5 +1,7 @@
 from models.__init__ import CURSOR, CONN
 
+#Users can have many playlists
+
 class User:
     
     #Dictionary of objects saved to the database
@@ -93,9 +95,6 @@ class User:
         
         #saves instance as a row to the database
         user.save()
-        
-        #saves newly created user instance into the class dictionary by id
-        cls.all[user.id] = user
         
         return user
     
