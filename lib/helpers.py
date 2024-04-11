@@ -178,6 +178,16 @@ def create_playlist():
         print("\nPlaylist created")
         print(new_playlist)
         
+def delete_playlist():
+    playlist_id = input("\nEnter id of playlist to be deleted: ")
+    playlist = Playlist.find_by_id(playlist_id)
+    if  playlist:
+        print("\nDeleting playlist...")
+        playlist.delete()
+        print(f'\nPlaylist with id {playlist_id} deleted')
+    else:
+        print("\nInvalid id. Id must be an integer and exist in the playlist table")
+        
     
     
     
