@@ -7,7 +7,8 @@ from helpers import (
     find_by_username,
     create_user,
     delete_user,
-    list_playlists
+    list_playlists,
+    create_playlist
 )
 
 
@@ -60,7 +61,7 @@ def playlist_menu():
         elif choice == "1":
             list_playlists()
         elif choice == "2":
-            print("create playlist")
+            create_playlist()
         elif choice == "3":
             print("update playlist")
         elif choice == "4":

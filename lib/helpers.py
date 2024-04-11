@@ -142,6 +142,43 @@ def list_playlists():
     
     for playlist in playlists:
         print(playlist)
+        
+def create_playlist():
+    """Creates a new playlist given input values"""
+    title = input("\nEnter title of new playlist: ")
+    #Validates that the title entered is a string and > 0
+    if isinstance(title, str) and len(title) > 0:
+            valid_title = True
+    else:
+        print("Invalid title. Title must be a string.")
+        valid_title = False
+        return
+    
+    description = input("\nEnter a brief description of the playlist: ")
+    #Validates that the username entered is a string and > 0
+    if isinstance(description, str) and len(description) > 0:
+            valid_description = True
+    else:
+        print("Invalid description. Description must be a string.")
+        valid_description = False
+        return
+    
+    username = input("\nEnter the username that the playlist belongs to: ")
+    user = User.find_by_username(username)
+    if user:
+            valid_username = True
+    else:
+        print("Invalid username. Username must exist.")
+        valid_username = False
+        return
+    
+    if valid_title and valid_description and valid_username:
+        print("\nCreating new playlist...")
+        new_playlist = Playlist.create(title, description, user.id)
+        print("\nPlaylist created")
+        print(new_playlist)
+        
+    
     
     
 def exit_program():
