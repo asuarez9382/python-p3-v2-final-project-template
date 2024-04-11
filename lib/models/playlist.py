@@ -122,5 +122,14 @@ class Playlist:
         
         return found_playlist
         
+    @classmethod
+    def get_all(cls):
+        sql="""
+            SELECT *
+            FROM playlists
+        """
+        
+        rows = CURSOR.execute(sql).fetchall()
+        return [ cls.instance_from_db(row) for row in rows ]
         
         
