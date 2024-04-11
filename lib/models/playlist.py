@@ -131,5 +131,14 @@ class Playlist:
         
         rows = CURSOR.execute(sql).fetchall()
         return [ cls.instance_from_db(row) for row in rows ]
+    
+    def update(self):
+        sql="""
+            UPDATE playlists
+            SET title = ?, description = ?, user_id = ?
+            WHERE id = ?
+        """
         
+        CURSOR.execute(sql, (self.title, self.description, self.user_id, self.id))
+        CONN.commit()
         
