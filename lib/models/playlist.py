@@ -142,3 +142,14 @@ class Playlist:
         CURSOR.execute(sql, (self.title, self.description, self.user_id, self.id))
         CONN.commit()
         
+    def delete(self):
+        sql="""
+            DELETE FROM playlists
+            WHERE id = ?
+        """
+        
+        CURSOR.execute(sql, (self.id,))
+        CONN.commit()
+        
+        del type(self).all[self.id]
+        self.id = None
