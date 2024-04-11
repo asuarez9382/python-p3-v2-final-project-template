@@ -52,6 +52,7 @@ class Playlist:
         
     @classmethod
     def create_table(cls):
+        """Creates a table"""
         sql="""
             CREATE TABLE IF NOT EXISTS playlists(
                 id INTEGER PRIMARY KEY,
@@ -67,6 +68,7 @@ class Playlist:
         
     @classmethod
     def drop_table(cls):
+        """Deletes the table"""
         sql="""
             DROP TABLE IF EXISTS playlists
         """
@@ -75,6 +77,7 @@ class Playlist:
         CONN.commit()
         
     def save(self):
+        """Adds a new row to the playlists table"""
         sql="""
             INSERT INTO playlists (title, description, user_id)
             VALUES (?,?,?)
@@ -88,6 +91,7 @@ class Playlist:
         
     @classmethod    
     def create(cls, title, description ,user_id):
+        """Creates a new playlist object and adds it to both the table and the all dictionary"""
         playlist = cls(title, description, user_id)
         
         playlist.save()
@@ -96,6 +100,7 @@ class Playlist:
     
     @classmethod
     def instance_from_db(cls, row):
+        """Turns a row in the table to a playlist object"""
         playlist = cls.all.get(row[0])
         
         if playlist:
@@ -110,6 +115,7 @@ class Playlist:
     
     @classmethod
     def find_by_id(cls, id):
+        """Finds the row in the playlists table that corresponds with the id inputed and returns the row and a playlist object"""
         sql="""
             SELECT * 
             FROM playlists
@@ -124,6 +130,7 @@ class Playlist:
         
     @classmethod
     def get_all(cls):
+        """Returns all the rows from the playlist table as playlist objects"""
         sql="""
             SELECT *
             FROM playlists
@@ -133,6 +140,7 @@ class Playlist:
         return [ cls.instance_from_db(row) for row in rows ]
     
     def update(self):
+        """Updates the row in the playlists table that corresponds to the playlist object id"""
         sql="""
             UPDATE playlists
             SET title = ?, description = ?, user_id = ?
@@ -143,6 +151,10 @@ class Playlist:
         CONN.commit()
         
     def delete(self):
+        """
+            Deletes the row in the playlist table and deletes the object in the Playlist.all dictionary.
+            Also sets the corresponding id in the all dictionary to None
+        """
         sql="""
             DELETE FROM playlists
             WHERE id = ?
