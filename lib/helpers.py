@@ -188,7 +188,48 @@ def delete_playlist():
     else:
         print("\nInvalid id. Id must be an integer and exist in the playlist table")
         
-    
+def update_playlist():
+    playlist_id = input("\nEnter the id of the playlist to be updated: ")
+    playlist = Playlist.find_by_id(playlist_id)
+    if playlist:
+        
+        title = input("\nEnter new title for the playlist: ")
+        if isinstance(title, str) and len(title) > 0:
+            valid_title = True
+        else:
+            valid_title = False
+            print("\nTitle must be a string and have a length longer than 0")
+            return 
+        
+        description = input("\nEnter a new description of the playlist: ")
+        if isinstance(description, str) and len(title) > 0:
+            valid_description = True
+        else:
+            valid_description = False
+            print("\Description must be a string and have a length longer than 0")
+            return
+        
+        user_id = input("\nEnter the user_id that the playlist will belong to: ")
+        user = User.find_by_id(user_id)
+        if user:
+            valid_user = True
+        else:
+            valid_user = False
+            print("\nUser Id must be an integer and exist in the users table")
+            return
+        
+        if valid_user and valid_description and valid_title:
+            print("\nUpdating user...")
+            #Changes user_id from a string to an id
+            user_id = int(user_id)
+            playlist.title = title
+            playlist.description = description
+            playlist.user_id = user_id
+            playlist.update()
+            print("\nUser updated")
+            print(playlist)
+    else:
+        print("\nPlaylist Id must be an integer and exist in the playlists table.")
     
     
 def exit_program():

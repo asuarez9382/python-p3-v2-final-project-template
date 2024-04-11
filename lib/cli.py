@@ -9,7 +9,8 @@ from helpers import (
     delete_user,
     list_playlists,
     create_playlist,
-    delete_playlist
+    delete_playlist,
+    update_playlist
 )
 
 
@@ -29,6 +30,7 @@ def user_menu():
         print("3. Create user")
         print("4. Delete User")
         print("5. Find user by username")
+        print("6. Show playlists that belong to user")
         choice = input("\nEnter your choice: ")
 
         if choice == "0":
@@ -43,6 +45,8 @@ def user_menu():
             delete_user()
         elif choice == "5":
             find_by_username()
+        elif choice == '6':
+            print("showing playlists")
         else:
             print("Invalid choice. Please try again.")
 
@@ -64,7 +68,7 @@ def playlist_menu():
         elif choice == "2":
             create_playlist()
         elif choice == "3":
-            print("update playlist")
+            update_playlist()
         elif choice == "4":
             delete_playlist()
         elif choice == "5":
