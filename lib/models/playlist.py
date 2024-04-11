@@ -96,8 +96,17 @@ class Playlist:
     
     @classmethod
     def instance_from_db(cls, row):
-        #implement logic here
-        pass
+        playlist = cls.all.get(row[0])
+        
+        if playlist:
+            playlist.title = row[1]
+            playlist.description = row[2]
+            playlist.user_id = row[3]
+        else:
+            playlist = cls(row[1],row[2],row[3])
+            playlist.id = row[0]
+            cls.all[playlist.id] = playlist
+        return playlist
     
     @classmethod
     def find_by_id(cls, id):
@@ -109,9 +118,7 @@ class Playlist:
         
         row = CURSOR.execute(sql, (id,)).fetchone()
         
-        #Add instance_to_db function
-        found_playlist = Playlist(row[1],row[2],row[3])
-        found_playlist.id = row[0]
+        found_playlist = cls.instance_from_db(row) if row else None
         
         return found_playlist
         
