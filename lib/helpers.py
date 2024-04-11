@@ -136,6 +136,7 @@ def delete_user():
 #Playlist helper functions
 
 def list_playlists():
+    """Prints all the playlists in the table"""
     print("\nListings playlists...")
     playlists = Playlist.get_all()    
     
