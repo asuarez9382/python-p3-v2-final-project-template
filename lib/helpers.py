@@ -1,8 +1,9 @@
 # lib/helpers.py
 
 from models.user import User
+from models.playlist import Playlist
 
-    
+#User helper functions
 
 def list_users():
     print("\nListing users...")
@@ -131,6 +132,17 @@ def delete_user():
     deleted_user.delete()
     print(f'User ID {user_id} has been deleted')   
     
+    
+#Playlist helper functions
+
+def list_playlists():
+    print("\nListings playlists...")
+    playlists = Playlist.get_all()    
+    
+    for playlist in playlists:
+        print(playlist)
+    
+    
 def exit_program():
-    print("Goodbye!")
+    print("\nGoodbye!")
     exit()

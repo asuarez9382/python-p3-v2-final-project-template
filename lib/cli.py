@@ -6,7 +6,8 @@ from helpers import (
     update_user,
     find_by_username,
     create_user,
-    delete_user
+    delete_user,
+    list_playlists
 )
 
 
@@ -47,18 +48,25 @@ def playlist_menu():
     while True:
         print("\nPlaylist Menu:")
         print("0. Go back to main menu")
-        print("1. Create a new playlist")
-        print("2. View existing playlists")
+        print("1. View existing playlists")
+        print("2. Create a new playlist")
+        print("3. Update a playlist")
+        print("4. Delete a playlist")
+        print("5. Show songs in a playlist")
         choice = input("Enter your choice: ")
 
         if choice == "0":
             break
         elif choice == "1":
-            print("Creating a new playlist...")
-            # Implement create new playlist functionality
+            list_playlists()
         elif choice == "2":
-            print("Viewing existing playlists...")
-            # Implement view existing playlists functionality
+            print("create playlist")
+        elif choice == "3":
+            print("update playlist")
+        elif choice == "4":
+            print("delete playlist")
+        elif choice == "5":
+            print("find corresponding users playlist")
         else:
             print("Invalid choice. Please try again.")
             
