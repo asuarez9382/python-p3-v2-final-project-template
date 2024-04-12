@@ -2,6 +2,7 @@
 
 from models.user import User
 from models.playlist import Playlist
+from models.song import Song
 
 #User helper functions
 
@@ -257,7 +258,16 @@ def show_playlists():
         return
     
 def show_songs_from_playlist():
-    playlist_id = input("\n")
+    playlist_id = input("\nEnter the id of the playlist: ")
+    playlist = Playlist.find_by_id(playlist_id)
+    if playlist:
+        songs = Song.get_all()
+        playlist_songs = [ song for song in songs if song.playlist_id == playlist.id ]
+        print(f'\nListing songs in {playlist.title} playlist: ')
+        for song in playlist_songs:
+            print(song)
+    else:
+        print("\nPlaylist id must be an integer and must exist in the playlists table")
     
 def exit_program():
     print("\nGoodbye!")

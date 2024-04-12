@@ -83,8 +83,10 @@ def song_menu():
     while True:
         print("\nSong Menu:")
         print("0. Go back to main menu")
-        print("1. Add a new song")
-        print("2. View songs")
+        print("1. View all songs")
+        print("2. Create a new song")
+        print("3. Update a song")
+        print("4. Delete a song")
         choice = input("Enter your choice: ")
 
         if choice == "0":
