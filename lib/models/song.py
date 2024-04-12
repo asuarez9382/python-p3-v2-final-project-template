@@ -41,7 +41,7 @@ class Song:
             if genre_lower in genres:
                 self._genre = genre
             else:
-                raise ValueError("Genre must be pop, dance, rock, r&b, country")
+                raise ValueError("Genre must be pop, dance, rock, r&b, country, or hip hop")
         else:
             raise ValueError("Genre must be a string and length must be greater than or equal to 3")
         

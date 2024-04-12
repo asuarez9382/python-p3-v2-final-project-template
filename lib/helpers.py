@@ -269,6 +269,8 @@ def show_songs_from_playlist():
     else:
         print("\nPlaylist id must be an integer and must exist in the playlists table")
         
+#Song helper functions        
+        
 def list_songs():
     print("\nListing songs...")
     songs = Song.get_all()
@@ -277,6 +279,72 @@ def list_songs():
             print(song)
     else:
         print("\nThere are no songs in the database")
+        
+def create_song():
+    """Creates new song given input values"""
+    title = input("\nEnter title of new song: ")
+    #Validates that the title entered is a string and > 0
+    if isinstance(title, str) and len(title) > 0:
+            valid_title = True
+    else:
+        print("\nInvalid title. Title must be a string.")
+        valid_title = False
+        return
+    
+    genres= ['pop','dance','rock','r&b','country', 'hip hop']
+    genre = input("\nEnter genre of new song: ")
+    genre_lower = genre.lower()
+    #Validates that the genre entered is a string and > 0
+    if isinstance(genre_lower, str) and len(genre_lower) >= 3 and genre_lower in genres:
+            valid_genre = True
+    else:
+        print("\nInvalid genre. Genre must be pop, dance, rock, r&b, country, or hip hop")
+        valid_genre = False
+        return
+    
+    duration = input("\nEnter the duration of the song in seconds: ") 
+    #Validates that the age entered is an integer
+    try:
+        duration = int(duration)
+    except ValueError:
+        print("\nDuration must be an integer")
+        return
+    #Validates that the age entered is greater than or equal to 5
+    if duration > 0:
+        valid_duration = True
+    else:
+        print("\nDuration must be greater than 0")
+        valid_duration = False
+        return
+    
+    artist = input("\nEnter the artist of the new song: ")
+    #Validates that the artist entered is a string and > 0
+    if isinstance(artist, str) and len(artist) > 0:
+            valid_artist = True
+    else:
+        print("\nInvalid artist. Artist must be a string.")
+        valid_artist = False
+        return
+
+    playlist_id = input("\nEnter the id of the playlist the song belongs to: ")
+    try:
+        playlist_id = int(playlist_id)
+    except ValueError:
+        print("\nPlaylist id must be an integer")
+        return
+    playlist = Playlist.find_by_id(playlist_id)
+    if playlist:
+            valid_playlist_id = True
+    else:
+        print("\nInvalid playlist id. Associated playlist must exist.")
+        valid_playlist_id = False
+        return
+    
+    if valid_title and valid_genre and valid_duration and valid_artist and valid_playlist_id:
+        print("\nCreating new song...")
+        new_song = Song.create(title, genre, duration, artist, playlist_id)
+        print("\nSong created")
+        print(new_song)
     
 def exit_program():
     print("\nGoodbye!")
