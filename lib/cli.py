@@ -18,7 +18,8 @@ from helpers import (
     create_song,
     delete_song,
     update_song,
-    show_by_genre
+    show_by_genre,
+    find_song_by_title
 )
 
 
@@ -112,6 +113,8 @@ def song_menu():
             delete_song()
         elif choice == '5':
             show_by_genre()
+        elif choice == "6":
+            find_song_by_title()
         else:
             print("Invalid choice. Please try again.")
 

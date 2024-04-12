@@ -279,6 +279,7 @@ def find_playlist_by_id():
     else:
         print("\nInvalid id. Playlist must exist in the playlists table")
         
+        
 #Song helper functions        
         
 def list_songs():
@@ -467,6 +468,21 @@ def show_by_genre():
     else:
         print("\nGenre must be one of the following: pop, dance, rock, r&b, country, hip hop") 
         return  
+    
+def find_song_by_title():
+    song_title = input("\nEnter the title of the song you wish to find: ")
+    try:
+        song_title = song_title.title()
+    except ValueError:
+        print("\nSong title must be a string")
+        return
+    song = Song.find_by_title(song_title)
+    if song:
+        print("\nFinding song...")
+        print("\nSong found")
+        print(song)
+    else:
+        print("\nInvalid title. Song must exist in the songs table")
     
 def exit_program():
     print("\nGoodbye!")

@@ -193,6 +193,17 @@ class Song:
         row = CURSOR.execute(sql, (id,)).fetchone()
     
         return cls.instance_from_db(row) if row else None
+    
+    @classmethod
+    def find_by_title(cls, title):
+        sql="""
+            SELECT *
+            FROM songs
+            WHERE title = ?
+        """
+        
+        row = CURSOR.execute(sql, (title,)).fetchone()
+        return cls.instance_from_db(row) if row else None
         
     
         
