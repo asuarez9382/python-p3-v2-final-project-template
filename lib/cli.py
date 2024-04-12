@@ -12,7 +12,8 @@ from helpers import (
     delete_playlist,
     update_playlist,
     show_playlists,
-    show_songs_from_playlist
+    show_songs_from_playlist,
+    list_songs
 )
 
 
@@ -92,8 +93,7 @@ def song_menu():
         if choice == "0":
             break
         elif choice == "1":
-            print("Adding a new song...")
-            # Implement add new song functionality
+            list_songs()
         elif choice == "2":
             print("Viewing songs...")
             # Implement view songs functionality

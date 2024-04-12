@@ -268,6 +268,15 @@ def show_songs_from_playlist():
             print(song)
     else:
         print("\nPlaylist id must be an integer and must exist in the playlists table")
+        
+def list_songs():
+    print("\nListing songs...")
+    songs = Song.get_all()
+    if songs:
+        for song in songs:
+            print(song)
+    else:
+        print("\nThere are no songs in the database")
     
 def exit_program():
     print("\nGoodbye!")
