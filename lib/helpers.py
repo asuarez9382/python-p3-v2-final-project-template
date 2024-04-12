@@ -230,7 +230,23 @@ def update_playlist():
             print(playlist)
     else:
         print("\nPlaylist Id must be an integer and exist in the playlists table.")
-    
+        
+def show_playlists():
+    username = input("\nEnter username to view their playlists: ")
+    user = User.find_by_username(username)
+    if user:
+        playlists = Playlist.get_all()
+        user_playlists = [ playlist for playlist in playlists if playlist.user_id == user.id ]
+        if user_playlists:
+            print(f"\n{user.username}'s playlists: ")
+            for playlist in user_playlists:
+                print(playlist)
+        else:
+            print(f'\n{user.username} does not have any playlists')
+            return
+    else:
+        print("\nUsername must be an integer and must exist in the users table")
+        return
     
 def exit_program():
     print("\nGoodbye!")

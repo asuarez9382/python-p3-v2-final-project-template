@@ -10,7 +10,8 @@ from helpers import (
     list_playlists,
     create_playlist,
     delete_playlist,
-    update_playlist
+    update_playlist,
+    show_playlists
 )
 
 
@@ -46,7 +47,7 @@ def user_menu():
         elif choice == "5":
             find_by_username()
         elif choice == '6':
-            print("showing playlists")
+            show_playlists()
         else:
             print("Invalid choice. Please try again.")
 
