@@ -6,6 +6,7 @@ from models.playlist import Playlist
 #User helper functions
 
 def list_users():
+    """Lists all the users"""
     print("\nListing users...")
     
     #Gets all of users from the users table
@@ -14,6 +15,7 @@ def list_users():
         print(user)
     
 def update_user():
+    """Updates a user by id"""
     import re
     
     user_id = input("\nEnter User ID: ")
@@ -68,6 +70,7 @@ def update_user():
         print(f'User with ID {user_id} does not exist. ID must be an integer')
         
 def find_by_username():
+    """Finds user by username"""
     username = input("\nEnter username: ")
     if isinstance(username, str) and len(username) > 0:
         found_user = User.find_by_username(username)
@@ -82,6 +85,7 @@ def find_by_username():
         return
     
 def create_user():
+    """Creates a user"""
     import re
     
     username = input("\nEnter username: ")
@@ -124,6 +128,7 @@ def create_user():
         print(newUser)
     
 def delete_user():
+    """Deletes a user by id"""
     user_id = input("\nEnter User Id of user to be deleted: ")
     
     deleted_user = User.find_by_id(user_id) 
@@ -179,6 +184,7 @@ def create_playlist():
         print(new_playlist)
         
 def delete_playlist():
+    """Deletes a playlist by id"""
     playlist_id = input("\nEnter id of playlist to be deleted: ")
     playlist = Playlist.find_by_id(playlist_id)
     if  playlist:
@@ -189,6 +195,7 @@ def delete_playlist():
         print("\nInvalid id. Id must be an integer and exist in the playlist table")
         
 def update_playlist():
+    """Updates a playlist by the given id"""
     playlist_id = input("\nEnter the id of the playlist to be updated: ")
     playlist = Playlist.find_by_id(playlist_id)
     if playlist:
@@ -232,6 +239,7 @@ def update_playlist():
         print("\nPlaylist Id must be an integer and exist in the playlists table.")
         
 def show_playlists():
+    """Shows all the playlists that belong to a specific user"""
     username = input("\nEnter username to view their playlists: ")
     user = User.find_by_username(username)
     if user:
