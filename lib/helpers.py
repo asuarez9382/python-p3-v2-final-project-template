@@ -272,6 +272,7 @@ def show_songs_from_playlist():
 #Song helper functions        
         
 def list_songs():
+    """Lists all songs"""
     print("\nListing songs...")
     songs = Song.get_all()
     if songs:
@@ -345,6 +346,16 @@ def create_song():
         new_song = Song.create(title, genre, duration, artist, playlist_id)
         print("\nSong created")
         print(new_song)
+        
+def delete_song():
+    song_id = input("\nEnter the id of the song to be deleted: ")
+    song = Song.find_by_id(song_id)
+    if song:
+        print(f'\nDeleting song with id {song_id}')
+        song.delete()
+        print("\nSong deleted")
+    else:
+        print("\nInvalid song id. Song must exist in the songs table")
     
 def exit_program():
     print("\nGoodbye!")

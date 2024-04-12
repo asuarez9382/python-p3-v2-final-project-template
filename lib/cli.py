@@ -14,7 +14,8 @@ from helpers import (
     show_playlists,
     show_songs_from_playlist,
     list_songs,
-    create_song
+    create_song,
+    delete_song
 )
 
 
@@ -97,7 +98,10 @@ def song_menu():
             list_songs()
         elif choice == "2":
             create_song()
-            # Implement view songs functionality
+        elif choice == '3':
+            print("updates song")
+        elif choice == '4':
+            delete_song()
         else:
             print("Invalid choice. Please try again.")
 
