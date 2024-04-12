@@ -167,7 +167,7 @@ class Song:
             WHERE id = ?
         """
         
-        CURSOR.execute(sql, (self.title, self.genre, self.duration, self.artist, self.playlist_id))
+        CURSOR.execute(sql, (self.title, self.genre, self.duration, self.artist, self.playlist_id, self.id))
         CONN.commit()
         
     def delete(self):

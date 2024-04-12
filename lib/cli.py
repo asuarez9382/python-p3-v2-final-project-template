@@ -15,7 +15,8 @@ from helpers import (
     show_songs_from_playlist,
     list_songs,
     create_song,
-    delete_song
+    delete_song,
+    update_song
 )
 
 
@@ -99,7 +100,7 @@ def song_menu():
         elif choice == "2":
             create_song()
         elif choice == '3':
-            print("updates song")
+            update_song()
         elif choice == '4':
             delete_song()
         else:
