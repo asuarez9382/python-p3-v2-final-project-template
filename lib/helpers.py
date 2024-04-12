@@ -269,6 +269,16 @@ def show_songs_from_playlist():
     else:
         print("\nPlaylist id must be an integer and must exist in the playlists table")
         
+def find_playlist_by_id():
+    playlist_id = input("\nEnter the id of the playlist: ")
+    playlist = Playlist.find_by_id(playlist_id)
+    if playlist:
+        print("\nFinding playlist...")
+        print("\nPlaylist found")
+        print(playlist)
+    else:
+        print("\nInvalid id. Playlist must exist in the playlists table")
+        
 #Song helper functions        
         
 def list_songs():
@@ -433,7 +443,30 @@ def update_song():
             print(song)
         
     else:
-        print("\nInvalid song id. Song must exist in the songs table")    
+        print("\nInvalid song id. Song must exist in the songs table") 
+        
+def show_by_genre():
+    """Shows all the songs under a specified genre and totals the number of songs"""
+    genres= ['pop','dance','rock','r&b','country', 'hip hop']
+    genre = input("\nEnter genre: ")
+    try:
+        genre_lower = genre.lower()
+    except ValueError:
+        print("\nGenre must be one of the following: pop, dance, rock, r&b, country, hip hop")
+    if genre_lower in genres:
+        songs = Song.get_all()
+        genre_songs = [ song for song in songs if genre_lower == song.genre.lower() ]
+        if genre_songs:
+            print(f'\nShowing songs under the genre {genre_lower}...')
+            total = len(genre_songs)
+            for song in genre_songs:
+                print(song)
+            print(f'\nTotal number of songs under the genre {genre_lower}: {total}')
+        else:
+            print(f'\nThere are no songs in the database under the genre {genre_lower}')
+    else:
+        print("\nGenre must be one of the following: pop, dance, rock, r&b, country, hip hop") 
+        return  
     
 def exit_program():
     print("\nGoodbye!")

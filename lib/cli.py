@@ -13,10 +13,12 @@ from helpers import (
     update_playlist,
     show_playlists,
     show_songs_from_playlist,
+    find_playlist_by_id,
     list_songs,
     create_song,
     delete_song,
-    update_song
+    update_song,
+    show_by_genre
 )
 
 
@@ -65,6 +67,7 @@ def playlist_menu():
         print("3. Update playlist metadata")
         print("4. Delete a playlist")
         print("5. Show songs in a playlist")
+        print("6. Find playlist by id")
         choice = input("Enter your choice: ")
 
         if choice == "0":
@@ -79,6 +82,8 @@ def playlist_menu():
             delete_playlist()
         elif choice == "5":
             show_songs_from_playlist()
+        elif choice == "6":
+            find_playlist_by_id()
         else:
             print("Invalid choice. Please try again.")
             
@@ -91,6 +96,8 @@ def song_menu():
         print("2. Create a new song")
         print("3. Update a song")
         print("4. Delete a song")
+        print("5. Show songs by genre")
+        print("6. Find song by name")
         choice = input("Enter your choice: ")
 
         if choice == "0":
@@ -103,6 +110,8 @@ def song_menu():
             update_song()
         elif choice == '4':
             delete_song()
+        elif choice == '5':
+            show_by_genre()
         else:
             print("Invalid choice. Please try again.")
 
@@ -112,7 +121,7 @@ def main():
         choice = input("Enter your choice: ")
 
         if choice == "0":
-            print("Exiting the program.")
+            print("Exiting the program...")
             exit_program()
         elif choice == "1":
             user_menu()
@@ -125,3 +134,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+#implement find song by name and find playlist by id then done
