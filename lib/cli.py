@@ -11,7 +11,8 @@ from helpers import (
     create_playlist,
     delete_playlist,
     update_playlist,
-    show_playlists
+    show_playlists,
+    show_songs_from_playlist
 )
 
 
@@ -73,7 +74,7 @@ def playlist_menu():
         elif choice == "4":
             delete_playlist()
         elif choice == "5":
-            print("Show the songs of a playlist")
+            show_songs_from_playlist()
         else:
             print("Invalid choice. Please try again.")
             

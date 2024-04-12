@@ -256,6 +256,9 @@ def show_playlists():
         print("\nUsername must be an integer and must exist in the users table")
         return
     
+def show_songs_from_playlist():
+    playlist_id = input("\n")
+    
 def exit_program():
     print("\nGoodbye!")
     exit()
