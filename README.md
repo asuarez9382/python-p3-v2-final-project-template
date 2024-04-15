@@ -1,172 +1,129 @@
-# Phase 3 CLI+ORM Project Template
+# Music Database manager
 
-## Learning Goals
+## Overview
 
-- Discuss the basic directory structure of a CLI.
-- Outline the first steps in building a CLI.
+The music database manager is a command line application that allows users to manage users, playlists, and songs. Users include many playlists, playlists include many songs, but a playlist can only belong to one user and a song can only belong to one playlist
 
----
+You can run the file `python cli.py` to start up the CLI. This file first seeds the database with sample data, then allows users to navigate the cli.
 
-## Introduction
+## Command Line Menus
 
-You now have a basic idea of what constitutes a CLI. Fork and clone this lesson
-for a project template for your CLI.
+From the main menu there are 3 menus (Users, Playlists, Songs) that users can enter in order to perform different tasks.
 
-Take a look at the directory structure:
+&nbsp;
 
-```console
-.
-├── Pipfile
-├── Pipfile.lock
-├── README.md
-└── lib
-    ├── models
-    │   ├── __init__.py
-    │   └── model_1.py
-    ├── cli.py
-    ├── debug.py
-    └── helpers.py
-```
+<img width="963" alt="Screenshot 2024-04-15 095749" src="https://github.com/asuarez9382/python-p3-v2-final-project-template/assets/12467862/47ccdf1f-1d91-49f9-bd4b-f967396690b6">
 
-Note: The directory also includes two files named `CONTRIBUTING.md` and
-`LICENSE.md` that are specific to Flatiron's curriculum. You can disregard or
-delete the files if you want.
+### Users
 
----
+Below shows the User menu and the different actions the user can perform 
 
-## Generating Your Environment
+&nbsp;
 
-You might have noticed in the file structure- there's already a Pipfile!
+<img width="963" alt="Screenshot 2024-04-15 100129" src="https://github.com/asuarez9382/python-p3-v2-final-project-template/assets/12467862/d05b487b-51a2-4e9a-b257-bc4be6375478">
 
-Install any additional dependencies you know you'll need for your project by
-adding them to the `Pipfile`. Then run the commands:
+&nbsp;
 
-```console
-pipenv install
-pipenv shell
-```
+Users can list all of the current users, create a new user, update a user, delete a user, view a certain user's playlists and find a specific user by username. Once one of these options are entered, the user will be prompted to provide input information that will be validated against the database. 
 
----
+&nbsp;
 
-## Generating Your CLI
+### Playlists
 
-A CLI is, simply put, an interactive script and prompts the user and performs
-operations based on user input.
+Similar to the User menu, users can look through the Playlist menu and perform different actions. 
 
-The project template has a sample CLI in `lib/cli.py` that looks like this:
+&nbsp;
 
-```py
-# lib/cli.py
+<img width="963" alt="Screenshot 2024-04-15 100850" src="https://github.com/asuarez9382/python-p3-v2-final-project-template/assets/12467862/348de9b8-f474-4cfa-90ca-3ab6b5bd8aca">
 
-from helpers import (
-    exit_program,
-    helper_1
-)
+&nbsp;
 
+The Playlist menu has some of the same features as the User menu however a user can also show songs in a particular playlist and find the playlist by id. 
 
-def main():
-    while True:
-        menu()
-        choice = input("> ")
-        if choice == "0":
-            exit_program()
-        elif choice == "1":
-            helper_1()
-        else:
-            print("Invalid choice")
+&nbsp;
 
+### Songs
 
-def menu():
-    print("Please select an option:")
-    print("0. Exit the program")
-    print("1. Some useful function")
+Similar to the User menu and the Playlist menu, users can look through the Song menu and perform different actions. 
 
+&nbsp;
 
-if __name__ == "__main__":
-    main()
-```
+<img width="963" alt="Screenshot 2024-04-15 101100" src="https://github.com/asuarez9382/python-p3-v2-final-project-template/assets/12467862/e2b5422a-1496-4454-a1bd-c4eebfe3d903">
 
-The helper functions are located in `lib/helpers.py`:
+&nbsp;
 
-```py
-# lib/helpers.py
+The Song menu has some of the same features as the User menu and the Playlist menu however a user can also show all the songs in a particular genre as well as find a song by name. 
 
-def helper_1():
-    print("Performing useful function#1.")
+&nbsp;
 
+## Helper Functions
 
-def exit_program():
-    print("Goodbye!")
-    exit()
-```
+`helpers.py` contains numerous helper functions that support the CLI interactivity. Below is an overview of these functions:
 
-You can run the template CLI with `python lib/cli.py`, or include the shebang
-and make it executable with `chmod +x`. The template CLI will ask for input, do
-some work, and accomplish some sort of task.
+`exit_program()` exits the program when a user selects 0 from the main menu.
 
-Past that, CLIs can be whatever you'd like, as long as you follow the project
-requirements.
+--
 
-Of course, you will update `lib/cli.py` with prompts that are appropriate for
-your application, and you will update `lib/helpers.py` to replace `helper_1()`
-with a useful function based on the specific problem domain you decide to
-implement, along with adding other helper functions to the module.
+`list_users()` Lists all of the users in the database.
 
-In the `lib/models` folder, you should rename `model_1.py` with the name of a
-data model class from your specific problem domain, and add other classes to the
-folder as needed. The file `lib/models/__init__.py` has been initialized to
-create the necessary database constants. You need to add import statements to
-the various data model classes in order to use the database constants.
+`update_user()` prompts the user to enter the ID of the user to be updated and then asks the user for the updated information.
 
-You are also welcome to implement a different module and directory structure.
-However, your project should be well organized, modular, and follow the design
-principal of separation of concerns, which means you should separate code
-related to:
+`find_by_username()` prompts the user to enter the username of the user to be found and then returns that user's information.
 
-- User interface
-- Data persistence
-- Problem domain rules and logic
+`create_user()` prompts the user to enter in information about the new user and then creates a new user in the database.
 
----
+`delete_user()` prompts the user to enter the ID of the user to be deleted and then deletes the corresponding user. 
 
-## Updating README.md
+`show_playlists()` prompts the user to enter the username of the user and displays that users playlists.
 
-`README.md` is a Markdown file that should describe your project. You will
-replace the contents of this `README.md` file with a description of **your**
-actual project.
+--
 
-Markdown is not a language that we cover in Flatiron's Software Engineering
-curriculum, but it's not a particularly difficult language to learn (if you've
-ever left a comment on Reddit, you might already know the basics). Refer to the
-cheat sheet in this assignments's resources for a basic guide to Markdown.
+`list_playlists()` Lists all of the playlists in the database.
 
-### What Goes into a README?
+`create_playlist()` prompts the user to enter in information about the new playlist and then adds it to the database
 
-This README serves as a template. Replace the contents of this file to describe
-the important files in your project and describe what they do. Each Python file
-that you edit should get at least a paragraph, and each function should be
-described with a sentence or two.
+`delete_playlist()` prompts the user to enter the ID of the playlist to be deleted and then deletes the corresponding playlist.
 
-Describe your actual CLI script first, and with a good level of detail. The rest
-should be ordered by importance to the user. (Probably functions next, then
-models.)
+`update_playlist()` prompts the uder to enter the ID of the playlist to be updates and then prompts the user to enter information to update the playlist
 
-Screenshots and links to resources that you used throughout are also useful to
-users and collaborators, but a little more syntactically complicated. Only add
-these in if you're feeling comfortable with Markdown.
+`find_playlist_by_id()` prompts the user to enter the ID of the playlist and then displays the information about that playlist. 
 
----
+`show_songs_from_playlist()` prompts the user to enter the ID of the playlist and displays all the songs that belong to that particular playlist.
 
-## Conclusion
+--
 
-A lot of work goes into a good CLI, but it all relies on concepts that you've
-practiced quite a bit by now. Hopefully this template and guide will get you off
-to a good start with your Phase 3 Project.
+`list_songs()` Lists all of the songs in the database.
 
-Happy coding!
+`create_song()` prompts the user to enter information about the new song and then creates the new song.
 
----
+`delete_song()` prompts the user to enter the ID of the song to be deleted and then deletes that particular song.
 
-## Resources
+`update_song()` prompts the user to enter the ID of the song to be updated and then asks for the updated information about the song.
 
-- [Markdown Cheat Sheet](https://www.markdownguide.org/cheat-sheet/)
+`show_by_genre()` prompts the user to enter the genre and displays all of the current songs in the database that is under that genre. Also displays a total number of songs in the genre. 
+
+`find_song_by_title()` prompts the user to enter the title of the song, and then displays the information regarding that song. 
+
+&nbsp;
+
+## Models
+
+This project is using 3 classes to manage the functionality of and relationships between users, playlists, and songs. The classes have many of the same methods.
+
+### User
+
+`user.py` contains the `User` class which is responsible for the functionality of all `User` objects. It includes the properties `username`, `email`, `age`, etc which are also validated. It also includes methods to create and drop the 'users' table, create a `User`, update a `User`, delete a `User`, get all `User`s, find a `User` by username or id, and display its playlists. It also includes a method to create a `User` from a row of the database.
+
+Here is an example of a `User` printed: "User ID: 1 Username: mochi9382 Email: mochi@gmail.com Age: 21"
+
+### Playlist
+
+`playlist.py` contains the `Playlist` class which is responsible for the functionality of all `Playlist` objects. It includes the properties `title`, `description`, `user_id` which are also validated. It also includes methods to create and drop the 'playlists' table, create a `Playlist`, update a `Playlist`, delete a `Playlist`, get all `Playlist`s, find a `Playlist` by id, and display all the songs in the `Playlist`. It also includes a method to create a `Playlist` from a row of the database.
+
+Here is an example of a `Playlist` printed: "Playlist ID: 1 Playlist title: Top Hits of 2002 Playlist description: Top songs from the year 2002 UserID: 1"
+
+### Song
+
+`song.py` contains the `Song` class which is responsible for the functionality of all `Song` objects. It includes the properties `title`, `duration`, `genre`, `artist`, `playlist_id` which are also validated. It also includes methods to create and drop the 'songs' table, create a `Song`, update a `Song`, delete a `Song`, get all `Song`s, find a `Song` by title, and display all the songs in a particular genre. It also includes a method to create a `Song` from a row of the database.
+
+Here is an example of a `Song` printed: "Song ID: 1 Song Title: Dilemma Song genre: Hip Hop Duration: 289 Artist: Nelly Playlist ID: 1"
