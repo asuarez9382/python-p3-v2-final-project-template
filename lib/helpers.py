@@ -132,11 +132,15 @@ def delete_user():
     """Deletes a user by id"""
     user_id = input("\nEnter User Id of user to be deleted: ")
     
-    deleted_user = User.find_by_id(user_id) 
+    user = User.find_by_id(user_id) 
+    if  user:
+        print("\nDeleting user...")
+        user.delete()
+        print(f'\nUser with id {user_id} deleted')
+    else:
+        print("\nInvalid id. Id must be an integer and exist in the database")
     
-    print("\nDeleting User...")
-    deleted_user.delete()
-    print(f'User ID {user_id} has been deleted')   
+      
     
     
 #Playlist helper functions
@@ -193,7 +197,7 @@ def delete_playlist():
         playlist.delete()
         print(f'\nPlaylist with id {playlist_id} deleted')
     else:
-        print("\nInvalid id. Id must be an integer and exist in the playlist table")
+        print("\nInvalid id. Id must be an integer and exist in the database")
         
 def update_playlist():
     """Updates a playlist by the given id"""
@@ -217,13 +221,13 @@ def update_playlist():
             print("\Description must be a string and have a length longer than 0")
             return
         
-        user_id = input("\nEnter the user_id that the playlist will belong to: ")
+        user_id = input("\nEnter the User id that the playlist will belong to: ")
         user = User.find_by_id(user_id)
         if user:
             valid_user = True
         else:
             valid_user = False
-            print("\nUser Id must be an integer and exist in the users table")
+            print("\nUser Id must be an integer and exist in the database")
             return
         
         if valid_user and valid_description and valid_title:
@@ -237,7 +241,7 @@ def update_playlist():
             print("\nUser updated")
             print(playlist)
     else:
-        print("\nPlaylist Id must be an integer and exist in the playlists table.")
+        print("\nPlaylist Id must be an integer and exist in the database")
         
 def show_playlists():
     """Shows all the playlists that belong to a specific user"""
@@ -254,10 +258,11 @@ def show_playlists():
             print(f'\n{user.username} does not have any playlists')
             return
     else:
-        print("\nUsername must be an integer and must exist in the users table")
+        print("\nInvalid username. User must exist in the database")
         return
     
 def show_songs_from_playlist():
+    """Shows all songs from a given playlist"""
     playlist_id = input("\nEnter the id of the playlist: ")
     playlist = Playlist.find_by_id(playlist_id)
     if playlist:
@@ -267,9 +272,10 @@ def show_songs_from_playlist():
         for song in playlist_songs:
             print(song)
     else:
-        print("\nPlaylist id must be an integer and must exist in the playlists table")
+        print("\nPlaylist id must be an integer and must exist in the database")
         
 def find_playlist_by_id():
+    """Finds playlist by id"""
     playlist_id = input("\nEnter the id of the playlist: ")
     playlist = Playlist.find_by_id(playlist_id)
     if playlist:
@@ -277,7 +283,7 @@ def find_playlist_by_id():
         print("\nPlaylist found")
         print(playlist)
     else:
-        print("\nInvalid id. Playlist must exist in the playlists table")
+        print("\nInvalid id. Playlist must exist in the database")
         
         
 #Song helper functions        
@@ -348,7 +354,7 @@ def create_song():
     if playlist:
             valid_playlist_id = True
     else:
-        print("\nInvalid playlist id. Associated playlist must exist.")
+        print("\nInvalid playlist id. Associated playlist must exist in the database")
         valid_playlist_id = False
         return
     
@@ -367,7 +373,7 @@ def delete_song():
         song.delete()
         print("\nSong deleted")
     else:
-        print("\nInvalid song id. Song must exist in the songs table")
+        print("\nInvalid song id. Song must exist in the database")
     
 def update_song():
     """Updates song by id"""
@@ -428,7 +434,7 @@ def update_song():
         if playlist:
                 valid_playlist_id = True
         else:
-            print("\nInvalid playlist id. Associated playlist must exist.")
+            print("\nInvalid playlist id. Associated playlist must exist in the database")
             valid_playlist_id = False
             return
         
@@ -444,7 +450,7 @@ def update_song():
             print(song)
         
     else:
-        print("\nInvalid song id. Song must exist in the songs table") 
+        print("\nInvalid song id. Song must exist in the database") 
         
 def show_by_genre():
     """Shows all the songs under a specified genre and totals the number of songs"""
@@ -470,6 +476,7 @@ def show_by_genre():
         return  
     
 def find_song_by_title():
+    """Finds song by title"""
     song_title = input("\nEnter the title of the song you wish to find: ")
     try:
         song_title = song_title.title()
@@ -482,7 +489,7 @@ def find_song_by_title():
         print("\nSong found")
         print(song)
     else:
-        print("\nInvalid title. Song must exist in the songs table")
+        print("\nInvalid title. Song must exist in the database")
     
 def exit_program():
     print("\nGoodbye!")
